@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class MachineTabActivity extends ListActivity{
 	private ArrayList<Machine> machineList;
 	private MachineAdapter machineListAdapter;
-	
+	ListView lv;
    
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,13 @@ public class MachineTabActivity extends ListActivity{
         LoadMachines object = new LoadMachines();
         object.execute(machineList);
         
-        ListView lv = getListView();
+        lv = getListView();
+
+        
+    }
+	@Override
+	protected void onResume(){
+		super.onResume();
         lv.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -65,11 +71,6 @@ public class MachineTabActivity extends ListActivity{
 			}
         	
         });
-        
-    }
-	@Override
-	protected void onResume(){
-		super.onResume();
 		
         
 	}

@@ -36,8 +36,7 @@ public class ClassTabActivity extends ListActivity {
 						ClassTabActivity.this);
 				builder.setMessage("Check in to this Class: "+classList.get(position))
 						.setCancelable(true)
-						.setPositiveButton("Yes",
-								new DialogInterface.OnClickListener() {
+						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 									@Override
 									public void onClick(DialogInterface dialog,	int which) {
