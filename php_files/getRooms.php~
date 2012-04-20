@@ -1,0 +1,11 @@
+<?php
+require_once "dbconnect.php";
+
+$sql = mysql_query("SELECT * FROM UserLogin");
+while($result = mysql_fetch_assoc($sql)){
+	$output[] = $result;
+}
+
+//print(json_encode($output));
+echo $output[];
+?>
