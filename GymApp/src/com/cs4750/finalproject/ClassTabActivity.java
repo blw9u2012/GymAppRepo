@@ -24,6 +24,12 @@ public class ClassTabActivity extends ListActivity{
         //Initialize the arraylist...
         //ArrayList<String> passing = new ArrayList<String>();
         classList = new ArrayList<Class>();
+        classList.add(new Class("Zumba"));
+        classList.add(new Class("Salsa"));
+        classList.add(new Class("Insanity"));
+        
+        classAdapter = new ClassAdapter(ClassTabActivity.this,R.layout.list_item_classes, classList);
+        setListAdapter(classAdapter);
         //LoadMachines object = new LoadMachines();
         //object.execute(classList);
         
