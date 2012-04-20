@@ -87,7 +87,7 @@ public class MachineTabActivity extends ListActivity{
 			return machines;
 		}
     	protected void onPostExecute(ArrayList<Machine> result){
-    		machineListAdapter = new MachineAdapter(MachineTabActivity.this, R.layout.list_item,machineList);
+    		machineListAdapter = new MachineAdapter(MachineTabActivity.this, R.layout.list_item_machines,machineList);
             setListAdapter(machineListAdapter);
     		
     	}
