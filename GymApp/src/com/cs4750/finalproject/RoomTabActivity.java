@@ -20,10 +20,7 @@ public class RoomTabActivity extends ListActivity{
         setContentView(R.layout.room_tab);
         
         roomList = new ArrayList<Room>();
-        roomList.add(new Room("Gym 1",true));
-        roomList.add(new Room("Gym 2", false));
-        roomList.add(new Room("Multipurpose Room", true));
-        
+
         roomAdapter = new RoomAdapter(RoomTabActivity.this, R.layout.list_item_rooms,roomList);
         setListAdapter(roomAdapter);
         ListView lv = getListView();
@@ -38,7 +35,7 @@ public class RoomTabActivity extends ListActivity{
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							//new ChangeMachineAvail().execute("0","4mo1b");
+							//change availability on reserve table
 						}
 					})
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {

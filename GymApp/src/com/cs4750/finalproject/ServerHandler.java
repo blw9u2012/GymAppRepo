@@ -78,6 +78,11 @@ public class ServerHandler {
 		return dataResult;
 	}
 	
+	public String checkIn(String id ){
+		
+		return null;
+	}
+	//for machines
 	public String changeAvailibility(String avail, String id){
 		nameValuePairs.add(new BasicNameValuePair("command","changeAvailibility"));
 		nameValuePairs.add(new BasicNameValuePair("avail",avail));

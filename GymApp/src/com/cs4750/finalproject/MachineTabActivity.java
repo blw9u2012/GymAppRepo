@@ -32,15 +32,23 @@ public class MachineTabActivity extends ListActivity{
         lv.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(MachineTabActivity.this);
-				builder.setMessage("Use this Machine?")
+				builder.setMessage("Use this Machine: " + machineList.get(position).getName())
 				       .setCancelable(true)
 				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							new ChangeMachineAvail().execute("0","4mo1b");
+							Machine m = machineList.get(position);
+							String id = String.valueOf(m.getId());
+							new ChangeMachineAvail().execute("0",id);
+							
+							//reset adapter...
+							machineList.remove(position);
+							machineListAdapter = new MachineAdapter(MachineTabActivity.this,R.layout.list_item_machines, machineList);
+							setListAdapter(machineListAdapter);
+							
 						}
 					})
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -79,8 +87,19 @@ public class MachineTabActivity extends ListActivity{
 	        	String delims = "[,]";
 	        	String[] tokens = machine.split(delims);
 	        	
-	        	//parse the int boolean values..
-	        	machineList.add(new Machine(tokens[0],tokens[1],tokens[2],true,tokens[4]));
+	        	int id = Integer.parseInt(tokens[0]);
+	        	String name = tokens[1];
+	        	String body_focus = tokens[2];
+	        	int available = Integer.parseInt(tokens[3]);
+	        	String exercise_type = tokens[4];
+	        	
+	        	
+	        	if(available == 1){
+	        		boolean availibility = true;
+	        		Machine m = new Machine(id,name,body_focus,availibility,exercise_type);
+	        		machineList.add(m);
+	        	}
+	        	//machineList.add(new Machine(tokens[0],tokens[1],tokens[2],true,tokens[4]));
 	        	
 	        }
 	        machines = machineList;

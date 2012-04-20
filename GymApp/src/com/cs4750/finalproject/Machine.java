@@ -4,15 +4,14 @@ public class Machine {
 
 	private String name;
 	private String body_focus;
-	private String inv_id;
 	private boolean available;
 	private String exercise_type;
+	private int id;
 
-	public Machine(String name, String body_focus, String inv_id,
-			boolean available, String exercise_type) {
+	public Machine(int id, String name, String body_focus,boolean available, String exercise_type) {
 		this.name = name;
 		this.body_focus = body_focus;
-		this.inv_id = inv_id;
+		this.id = id;
 		this.available = available;
 		this.exercise_type = exercise_type;
 	}
@@ -21,7 +20,8 @@ public class Machine {
 		this.name = name;
 	}
 	
-	public Machine(String name, Boolean available){
+	public Machine(int id, String name, Boolean available){
+		this.id = id;
 		this.name = name;
 		this.available = available;
 	}
@@ -38,12 +38,7 @@ public class Machine {
 	public void setBody_focus(String body_focus) {
 		this.body_focus = body_focus;
 	}
-	public String getInv_id() {
-		return inv_id;
-	}
-	public void setInv_id(String inv_id) {
-		this.inv_id = inv_id;
-	}
+
 	public boolean isAvailable() {
 		return available;
 	}
@@ -55,5 +50,13 @@ public class Machine {
 	}
 	public void setExercise_type(String exercise_type) {
 		this.exercise_type = exercise_type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

@@ -22,16 +22,19 @@ public final class R {
         public static final int className=0x7f060007;
         public static final int classTitleTV=0x7f060005;
         public static final int date=0x7f060004;
-        public static final int home_page=0x7f06000c;
+        public static final int home_page=0x7f06000f;
         public static final int info_row=0x7f060002;
-        public static final int loginButton=0x7f06000d;
+        public static final int loginButton=0x7f060010;
         public static final int machineAvailibity=0x7f06000a;
         public static final int machineName=0x7f060009;
-        public static final int machineTitleTV=0x7f06000b;
+        public static final int machineTitleTV=0x7f06000d;
         public static final int pageusername=0x7f060003;
-        public static final int sampleText=0x7f060010;
-        public static final int signUpButton=0x7f06000e;
-        public static final int title=0x7f06000f;
+        public static final int roomAvailibity=0x7f06000c;
+        public static final int roomName=0x7f06000b;
+        public static final int roomTitleTV=0x7f06000e;
+        public static final int sampleText=0x7f060013;
+        public static final int signUpButton=0x7f060011;
+        public static final int title=0x7f060012;
         public static final int tvChild=0x7f060000;
         public static final int tvGroup=0x7f060006;
         public static final int userPageLinLayout=0x7f060001;
@@ -43,9 +46,11 @@ public final class R {
         public static final int home_tab=0x7f030003;
         public static final int list_item_classes=0x7f030004;
         public static final int list_item_machines=0x7f030005;
-        public static final int machine_tab=0x7f030006;
-        public static final int signin_page=0x7f030007;
-        public static final int tab_host=0x7f030008;
+        public static final int list_item_rooms=0x7f030006;
+        public static final int machine_tab=0x7f030007;
+        public static final int room_tab=0x7f030008;
+        public static final int signin_page=0x7f030009;
+        public static final int tab_host=0x7f03000a;
     }
     public static final class raw {
         public static final int user=0x7f040000;
