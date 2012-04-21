@@ -3,6 +3,7 @@ package com.cs4750.finalproject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -49,6 +50,7 @@ public class ServerHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		nameValuePairs.clear();
 		return result;
 	}
 	
@@ -75,12 +77,35 @@ public class ServerHandler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		nameValuePairs.clear();
 		return dataResult;
 	}
 	
-	public String checkIn(String id ){
-		
-		return null;
+	public String checkIn(String userId, String classId ){
+		nameValuePairs.add(new BasicNameValuePair("command","checkIn"));
+		nameValuePairs.add(new BasicNameValuePair("user_id",userId));
+		nameValuePairs.add(new BasicNameValuePair("class_id",classId));
+		String line;
+	
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	//for machines
 	public String changeAvailibility(String avail, String id){
@@ -107,6 +132,7 @@ public class ServerHandler {
 		} catch (Exception e) {
 		e.printStackTrace();
 	}
+	nameValuePairs.clear();
 	return result;
 		
 	}

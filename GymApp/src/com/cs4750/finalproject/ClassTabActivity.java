@@ -2,7 +2,6 @@ package com.cs4750.finalproject;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -11,11 +10,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class ClassTabActivity extends ListActivity {
 	private ArrayList<Class> classList;
 	private ClassAdapter classListAdapter;
+	private ServerHandler sv;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,15 +36,17 @@ public class ClassTabActivity extends ListActivity {
 					final int position, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						ClassTabActivity.this);
-				builder.setMessage("Check in to this Class: "+classList.get(position))
+				builder.setMessage("Check in to this Class: "+classList.get(position).getTitle())
 						.setCancelable(true)
 						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 									@Override
 									public void onClick(DialogInterface dialog,	int which) {
 										// check in to class...
-										String id = String.valueOf(classList.get(position).getId());
-										
+										//String userId = String.valueOf(classList.get(position).getId());
+										String userId = "1";
+										String classId = String.valueOf(classList.get(position).getId());
+										new CheckIn().execute(userId,classId);
 									}
 								})
 						.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -55,6 +59,29 @@ public class ClassTabActivity extends ListActivity {
 				AlertDialog alert = builder.create();
 				alert.show();
 			}
+		});
+		
+		lv.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			@Override
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(ClassTabActivity.this);
+					builder.setMessage("Sign Up for "+classList.get(arg2).getTitle()+"?");
+					builder.setCancelable(true);
+					builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Toast.makeText(getBaseContext(), "Signed Up", Toast.LENGTH_LONG).show();
+							
+						}
+					});
+					builder.create();
+					builder.show();
+				return true;
+			}
+			
 		});
 	}
 
@@ -97,5 +124,21 @@ public class ClassTabActivity extends ListActivity {
 			setListAdapter(classListAdapter);
 
 		}
+	}
+	private class CheckIn extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			String userId = params[0];
+			String classId = params[1];
+			sv = new ServerHandler();
+			String result = sv.checkIn(userId, classId);
+			return result;
+		}
+		
+		protected void onPostExecute(String result){
+			Toast.makeText(ClassTabActivity.this, result, Toast.LENGTH_LONG);
+		}
+		
 	}
 }
