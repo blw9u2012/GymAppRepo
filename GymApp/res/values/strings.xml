@@ -3,5 +3,7 @@
 
     <string name="hello">Hello World, GymAppActivity!</string>
     <string name="app_name">GymApp</string>
+    <string name="spinner_prompt">Choose Your Age:</string>
+
 
 </resources>

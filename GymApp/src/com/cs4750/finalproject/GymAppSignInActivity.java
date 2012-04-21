@@ -1,12 +1,15 @@
 package com.cs4750.finalproject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class GymAppSignInActivity extends Activity {
@@ -16,25 +19,36 @@ public class GymAppSignInActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.signin_page);
 
+		final EditText userName = (EditText)findViewById(R.id.loginText);
+		final EditText userPassword = (EditText)findViewById(R.id.pwText);
+		
+		
 		Button loginButton = (Button)findViewById(R.id.loginButton);
 		loginButton.setOnClickListener(new OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(GymAppSignInActivity.this,GymTabWidget.class);
+				String user_name = userName.getText().toString();
+				String password = userPassword.getText().toString();
+				
+				//try to sign in...
+				
+			}
+			
+		});		
+		
+		
+		Button signUpButton = (Button)findViewById(R.id.signUpButton);
+		signUpButton.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(GymAppSignInActivity.this, RegisterUserActivity.class);
 				startActivity(i);
 				
 			}
 			
 		});
-		
-		//DatabaseHandler db = new DatabaseHandler(this, null, null, 1);
-		//db.addUser(new User(1, "Brandon", "blw9u", "2158344621"));
-		//TextView tv = (TextView) findViewById(R.id.title);
-		//tv.setText(db.getUser(1).getName());
-		
-
-		
 	}
 
 	@Override
@@ -42,7 +56,7 @@ public class GymAppSignInActivity extends Activity {
     	super.onResume();
     	//new GetSomeData().execute("getRooms");		
     }
-	private class GetSomeData extends AsyncTask <String, Integer, String>{
+	private class SignIn extends AsyncTask <String, Integer, String>{
 
 		@Override
 		protected String doInBackground(String... params) {

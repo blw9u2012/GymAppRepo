@@ -28,6 +28,64 @@ public class ServerHandler {
 		nameValuePairs = new ArrayList<NameValuePair>();
 	}
 
+	public String signIn(String username, String pw){
+		nameValuePairs.add(new BasicNameValuePair("command","signIn"));
+		nameValuePairs.add(new BasicNameValuePair("username",username));
+		nameValuePairs.add(new BasicNameValuePair("password",pw));
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+				dataResult.add(line);
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return result;
+	}
+	public String addUser(String name, String age, String email, String phone, String screenName, String pw){
+		nameValuePairs.add(new BasicNameValuePair("command","addUser"));
+		nameValuePairs.add(new BasicNameValuePair("name",name));
+		nameValuePairs.add(new BasicNameValuePair("age",age));
+		nameValuePairs.add(new BasicNameValuePair("email",email));
+		nameValuePairs.add(new BasicNameValuePair("phone",phone));
+		nameValuePairs.add(new BasicNameValuePair("username",screenName));
+		nameValuePairs.add(new BasicNameValuePair("password",pw));
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+				dataResult.add(line);
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return result;
+	}
 	public String createPostRequest(String data){
 		nameValuePairs.add(new BasicNameValuePair("command",data));
 		String line;

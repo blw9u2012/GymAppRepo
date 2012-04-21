@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -73,7 +74,8 @@ public class ClassTabActivity extends ListActivity {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Toast.makeText(getBaseContext(), "Signed Up", Toast.LENGTH_LONG).show();
+							Intent i  = new Intent(ClassTabActivity.this,RegisterUserActivity.class);
+							startActivity(i);
 							
 						}
 					});

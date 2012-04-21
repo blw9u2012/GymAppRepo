@@ -6,6 +6,7 @@ public class User {
 	private String name;
 	private String email;
 	private String phone_number;
+	private int age;
 	
 	//constructor
 	public User(int id, String newName, String newEmail, String newPhone){
@@ -22,6 +23,20 @@ public class User {
 		this.setPhone_number(newPhone);
 	}
 	
+	public User(int id, String newName, String newEmail, String newPhone, int age){
+		this.id = id;
+		this.setName(newName);
+		this.setEmail(newEmail);
+		this.setPhone_number(newPhone);
+		this.setAge(age);
+	}
+	
+	public User( String newName, String newEmail, String newPhone, int age){
+		this.setName(newName);
+		this.setEmail(newEmail);
+		this.setPhone_number(newPhone);
+		this.setAge(age);
+	}
 	//retrieve id
 	public int getID(){
 		return this.id;
@@ -54,6 +69,14 @@ public class User {
 
 	public void setPhone_number(String phone_number) {
 		this.phone_number = phone_number;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 	

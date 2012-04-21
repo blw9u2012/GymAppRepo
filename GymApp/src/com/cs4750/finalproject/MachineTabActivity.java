@@ -48,12 +48,21 @@ public class MachineTabActivity extends ListActivity{
 						public void onClick(DialogInterface dialog, int which) {
 							Machine m = machineList.get(position);
 							String id = String.valueOf(m.getId());
-							new ChangeMachineAvail().execute("0",id);
-							
-							//reset adapter...
-							machineList.remove(position);
-							machineListAdapter = new MachineAdapter(MachineTabActivity.this,R.layout.list_item_machines, machineList);
-							setListAdapter(machineListAdapter);
+							if(m.isAvailable()){
+								new ChangeMachineAvail().execute("0",id);
+								
+								//reset list
+								machineList.clear();
+								new LoadMachines().execute(machineList);
+							}
+							else{
+								Toast.makeText(getApplicationContext(), "Machine is currently unavailable", Toast.LENGTH_LONG).show();
+								new ChangeMachineAvail().execute("1",id);
+								
+								//update view...
+								machineList.clear();
+								new LoadMachines().execute(machineList);
+							}
 							
 						}
 					})
@@ -100,7 +109,10 @@ public class MachineTabActivity extends ListActivity{
 	        		Machine m = new Machine(id,name,body_focus,availibility,exercise_type);
 	        		machineList.add(m);
 	        	}
-	        	//machineList.add(new Machine(tokens[0],tokens[1],tokens[2],true,tokens[4]));
+	        	else{
+	        		machineList.add(new Machine(id,name,body_focus,false,exercise_type));	
+	        	}
+	        	
 	        	
 	        }
 	        machines = machineList;

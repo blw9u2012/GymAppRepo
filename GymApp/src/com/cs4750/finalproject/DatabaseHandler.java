@@ -1,6 +1,5 @@
 package com.cs4750.finalproject;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final String KEY_NAME = "name";
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_PHONE = "phone";
+	private static final String KEY_AGE = "age";
 
     Context context;
 
@@ -37,8 +37,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	//Creating the tables...
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT, " + KEY_EMAIL + " TEXT," 
-				+ KEY_PHONE + " TEXT" + ")";
+		String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY autoincrement," + KEY_NAME + " TEXT not null, " + KEY_EMAIL + " TEXT," 
+				+ KEY_PHONE + " TEXT" + KEY_AGE+ "INTEGER" + ")";
 		db.execSQL(CREATE_USER_TABLE);
 		
 	}
@@ -57,12 +57,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	
 	//add a new user...
 	public void addUser(User user){
-		SQLiteDatabase db = this.getReadableDatabase();
+		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, user.getName());
 		values.put(KEY_EMAIL, user.getEmail());
 		values.put(KEY_PHONE, user.getPhone_number());
+		values.put(KEY_AGE, user.getAge());
 		
 		//Insert the values...
 		db.insert(TABLE_USER, null, values);
@@ -73,13 +74,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public User getUser(int id){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
-		Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL}, KEY_ID+"=?", new String[]{String.valueOf(id)}, null, 
+		Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL, KEY_AGE}, KEY_ID+"=?", new String[]{String.valueOf(id)}, null, 
 				null, null, null);
 		
 		//moves the cursor to the first row...
 		if(cursor != null)cursor.moveToFirst();
 		
-		User user = new User(Integer.parseInt(cursor.getString(0)),cursor.getString(1), cursor.getString(2), cursor.getString(3));
+		User user = new User(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
 		
 		return user;
 		
@@ -99,10 +100,11 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		if(cursor.moveToFirst()){
 			do{
 				User user = new User(null,null,null);
-				user.setID(Integer.parseInt(cursor.getString(0)));
+				user.setID(cursor.getInt(0));
 				user.setName(cursor.getString(1));
 				user.setEmail(cursor.getString(2));
 				user.setPhone_number(cursor.getString(3));
+				user.setAge(cursor.getInt(4));
 				
 				//add user to contactlist
 				userList.add(user);
@@ -119,14 +121,16 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		values.put(KEY_NAME, user.getName());
 		values.put(KEY_EMAIL, user.getEmail());
 		values.put(KEY_PHONE, user.getPhone_number());
+		values.put(KEY_AGE, user.getAge());
 		
-		return db.update(TABLE_USER, values, KEY_ID + " = ?", new String[] {String.valueOf(user.getID()) });
+		return db.update(TABLE_USER, values, KEY_ID + "=?", new String[] {String.valueOf(user.getID()) });
+		
 	}
 	
 	//delete a user....
 	public void deleteUser(User user){
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(TABLE_USER, KEY_ID + " = ?", new String[] {String.valueOf(user.getID()) });
+		db.delete(TABLE_USER, KEY_ID + "=?", new String[] {String.valueOf(user.getID()) });
 		db.close();
 	}
 	
@@ -136,6 +140,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);
         cursor.close();
+        
+        
         return cursor.getCount();
 	}
 	

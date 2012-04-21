@@ -4,6 +4,24 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+    
+    
+    <LinearLayout android:id="@+id/loginInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <EditText android:id="@+id/loginText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username..." />
+        
+        <EditText android:id="@+id/pwText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password..."
+            android:inputType="textPassword" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/loginButton"
