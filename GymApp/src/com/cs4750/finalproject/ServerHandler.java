@@ -3,7 +3,6 @@ package com.cs4750.finalproject;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
@@ -45,7 +44,7 @@ public class ServerHandler {
 			StringBuilder sb = new StringBuilder();
 			while((line = bf.readLine()) != null){        
 				sb.append(line + "\n");
-				dataResult.add(line);
+				//dataResult.add(line);
 			}
 			is.close();
 			result = sb.toString();
@@ -70,7 +69,7 @@ public class ServerHandler {
 			HttpResponse httpResponse  = httpClient.execute(httpPost);
 			HttpEntity entity = httpResponse.getEntity();
 			InputStream is = entity.getContent();
-			
+			dataResult = new ArrayList<String>();
 			//get response string...
 			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
 			StringBuilder sb = new StringBuilder();
@@ -137,6 +136,33 @@ public class ServerHandler {
 		}
 		nameValuePairs.clear();
 		return dataResult;
+	}
+	
+	public String signUp(String userId, String classId ){
+		nameValuePairs.add(new BasicNameValuePair("command","signUp"));
+		nameValuePairs.add(new BasicNameValuePair("userId",userId));
+		nameValuePairs.add(new BasicNameValuePair("classId",classId));
+		String line;
+	
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public String checkIn(String userId, String classId ){

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -65,18 +64,27 @@ public class ClassTabActivity extends ListActivity {
 		lv.setOnItemLongClickListener(new OnItemLongClickListener(){
 
 			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					final int position, long id) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(ClassTabActivity.this);
-					builder.setMessage("Sign Up for "+classList.get(arg2).getTitle()+"?");
+					builder.setMessage("Sign Up for "+classList.get(position).getTitle()+"?");
 					builder.setCancelable(true);
 					builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Intent i  = new Intent(ClassTabActivity.this,RegisterUserActivity.class);
-							startActivity(i);
+							DatabaseHandler db = new DatabaseHandler(getApplicationContext(), null, null,1);
+							Bundle bundle = getIntent().getExtras();
+							String userId = bundle.getString("id");
+		
+							userId = userId.replace("\n", "");
+							String userName = bundle.getString("user_name");
+							User user = db.getUser(Integer.parseInt(userId));
+							//Toast.makeText(getApplicationContext(), user.getName(), Toast.LENGTH_LONG).show();
 							
+							//use the user's information to sign up to the class
+							
+							new SignUp().execute(userId,String.valueOf(classList.get(position).getId()));
 						}
 					});
 					builder.create();
@@ -86,7 +94,8 @@ public class ClassTabActivity extends ListActivity {
 			
 		});
 	}
-
+	
+	//threads to handle the db interactions...
 	private class LoadClasses extends AsyncTask<ArrayList<Class>, Void, ArrayList<Class>> {
 
 		@Override
@@ -128,7 +137,6 @@ public class ClassTabActivity extends ListActivity {
 		}
 	}
 	private class CheckIn extends AsyncTask<String, Void, String>{
-
 		@Override
 		protected String doInBackground(String... params) {
 			String userId = params[0];
@@ -140,6 +148,22 @@ public class ClassTabActivity extends ListActivity {
 		
 		protected void onPostExecute(String result){
 			Toast.makeText(ClassTabActivity.this, result, Toast.LENGTH_LONG);
+		}
+		
+	}
+	private class SignUp extends AsyncTask<String, Void, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			String userId = params[0];
+			String classId = params[1];
+			ServerHandler sv = new ServerHandler();
+			String result = sv.signUp(userId, classId);
+			return result;
+		}
+		
+		protected void onPostExecute(String result){
+			Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
 		}
 		
 	}

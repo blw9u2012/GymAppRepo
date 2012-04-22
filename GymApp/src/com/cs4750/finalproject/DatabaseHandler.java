@@ -16,7 +16,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final int DATABASE_VERSION = 1;
 	
 	//Database name
-	private static final String DATABASE_NAME = "GYM_APP_MANAGER";
+	//private static final String DATABASE_NAME = "GYM_APP_MANAGER";
+	private static final String DATABASE_NAME = "gymApp.db";
 	
 	//Users table name...
 	private static final String TABLE_USER = "User";
@@ -37,8 +38,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	//Creating the tables...
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY autoincrement," + KEY_NAME + " TEXT not null, " + KEY_EMAIL + " TEXT," 
-				+ KEY_PHONE + " TEXT" + KEY_AGE+ "INTEGER" + ")";
+		String CREATE_USER_TABLE = "CREATE TABLE " + TABLE_USER 
+				+"(" + KEY_ID + " INTEGER NOT NULL, " 
+				+ KEY_NAME + " VARCHAR(50) NOT NULL, " 
+				+ KEY_EMAIL + " VARCHAR(25) NOT NULL, " 
+				+ KEY_PHONE + " VARCHAR(10) NOT NULL, " 
+				+ KEY_AGE + " INTEGER NOT NULL, " 
+				+ "PRIMARY KEY("+KEY_ID+"))";
 		db.execSQL(CREATE_USER_TABLE);
 		
 	}

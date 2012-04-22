@@ -73,8 +73,6 @@ public class RegisterUserActivity extends Activity{
 				
 				if(user_password.equals(confirm_user_password)){
 					new AddUser().execute(user_name,spinnerValue,user_email,user_phone,user_screenName, user_password);
-					Intent i  = new Intent(RegisterUserActivity.this, GymTabWidget.class);
-					startActivity(i);
 				}
 				else{
 					Toast.makeText(RegisterUserActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
@@ -107,7 +105,19 @@ public class RegisterUserActivity extends Activity{
 		}
 		
 		protected void onPostExecute(String result){
-			Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();
+			Toast.makeText(getBaseContext(), result, Toast.LENGTH_LONG).show();	
+			
+			//parse the name and id...
+			String delims = "[,]";
+			String[] res = result.split(delims);
+			
+			DatabaseHandler db = new DatabaseHandler(getApplicationContext(), null, null, 1);
+			db.addUser(new User(userName.getText().toString(),userEmail.getText().toString(),userPhone.getText().toString(),Integer.parseInt(spinnerValue)));
+			
+			Intent i  = new Intent(RegisterUserActivity.this, GymTabWidget.class);
+			i.putExtra("user_name", userName.getText().toString());
+			i.putExtra("id", res[0]);
+			startActivity(i);
 		}
 	}
 }
