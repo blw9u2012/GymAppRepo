@@ -30,7 +30,8 @@ public class GymAppSignInActivity extends Activity {
 			public void onClick(View v) {
 				String user_name = userName.getText().toString();
 				String password = userPassword.getText().toString();
-				
+				Intent i = new Intent(GymAppSignInActivity.this, GymTabWidget.class);
+				startActivity(i);
 				//try to sign in...
 				
 			}
