@@ -4,17 +4,23 @@ public class Room {
 
 	private String id;
 	private String name;
-	private int room_number;
-	private int floor;
+	private String floor;
+	private int capacity;
 	
 	private boolean available;
 
-	public Room(String name, String id, int room_number, int floor, boolean available) {
+	public Room(String name, String id, String f, boolean res) {
 		this.name = name;
-		this.id = id;
-		this.room_number = room_number;
-		this.floor = floor;
-		this.available = available;
+		this.id = id;	
+		this.floor = f;
+		this.available = res;
+	}
+	
+	public Room(String name, String id, String f, int cap) {
+		this.name = name;
+		this.id = id;	
+		this.floor = f;
+		this.capacity = cap;
 	}
 	
 	public Room(String name, boolean avail ){
@@ -39,27 +45,27 @@ public class Room {
 		this.id = id;
 	}
 
-	public int getRoom_number() {
-		return room_number;
-	}
-
-	public void setRoom_number(int room_number) {
-		this.room_number = room_number;
-	}
-
-	public int getFloor() {
-		return floor;
-	}
-
-	public void setFloor(int floor) {
-		this.floor = floor;
-	}
-
 	public boolean isAvailable() {
 		return available;
 	}
 
 	public void setAvailable(boolean available) {
 		this.available = available;
+	}
+
+	public String getFloor() {
+		return floor;
+	}
+
+	public void setFloor(String f) {
+		this.floor = f;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 }

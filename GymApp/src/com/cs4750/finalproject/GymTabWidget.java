@@ -20,7 +20,7 @@ public class GymTabWidget extends TabActivity {
 	    
 	    Bundle bundle = getIntent().getExtras();
 	    String username = bundle.getString("user_name");
-	    String user_id = bundle.getString("id");
+	    String user_id = bundle.getString("id"); //user id from mysql...
 
 	    // Create an Intent to launch an Activity for the tab (to be reused)
 	    intent = new Intent().setClass(this, HomeTabActivity.class);

@@ -28,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	private static final String KEY_EMAIL = "email";
 	private static final String KEY_PHONE = "phone";
 	private static final String KEY_AGE = "age";
+	private static final String KEY_USERNAME = "username";
 
     Context context;
 
@@ -44,6 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 				+ KEY_EMAIL + " VARCHAR(25) NOT NULL, " 
 				+ KEY_PHONE + " VARCHAR(10) NOT NULL, " 
 				+ KEY_AGE + " INTEGER NOT NULL, " 
+				+ KEY_USERNAME + " VARCHAR(30) NOT NULL, "
 				+ "PRIMARY KEY("+KEY_ID+"))";
 		db.execSQL(CREATE_USER_TABLE);
 		
@@ -70,6 +72,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 		values.put(KEY_EMAIL, user.getEmail());
 		values.put(KEY_PHONE, user.getPhone_number());
 		values.put(KEY_AGE, user.getAge());
+		values.put(KEY_USERNAME, user.getUsername());
 		
 		//Insert the values...
 		db.insert(TABLE_USER, null, values);
@@ -80,13 +83,29 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 	public User getUser(int id){
 		SQLiteDatabase db = this.getReadableDatabase();
 		
-		Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL, KEY_AGE}, KEY_ID+"=?", new String[]{String.valueOf(id)}, null, 
+		Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL, KEY_AGE, KEY_USERNAME}, KEY_ID+"=?", new String[]{String.valueOf(id)}, null, 
 				null, null, null);
 		
 		//moves the cursor to the first row...
 		if(cursor != null)cursor.moveToFirst();
 		
-		User user = new User(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
+		User user = new User(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getString(5));
+		
+		return user;
+		
+	}
+	//retrieve a single user...
+	public User getUser(String username){
+		SQLiteDatabase db = this.getReadableDatabase();
+		
+		Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_PHONE, KEY_EMAIL, KEY_AGE, KEY_USERNAME}, KEY_USERNAME+"=?",
+				new String[]{username}, null, 
+				null, null, null);
+		
+		//moves the cursor to the first row...
+		if(cursor != null)cursor.moveToFirst();
+		
+		User user = new User(cursor.getInt(0),cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getString(5));
 		
 		return user;
 		

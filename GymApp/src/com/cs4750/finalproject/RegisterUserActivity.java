@@ -110,13 +110,22 @@ public class RegisterUserActivity extends Activity{
 			//parse the name and id...
 			String delims = "[,]";
 			String[] res = result.split(delims);
+
+			Intent i  = new Intent(RegisterUserActivity.this, GymTabWidget.class);
+			i.putExtra("user_name", userScreenName.getText().toString());
+			i.putExtra("id", res[0]);
 			
 			DatabaseHandler db = new DatabaseHandler(getApplicationContext(), null, null, 1);
-			db.addUser(new User(userName.getText().toString(),userEmail.getText().toString(),userPhone.getText().toString(),Integer.parseInt(spinnerValue)));
+			User user = new User(null,null,null);
+			user.setAge(Integer.parseInt(spinnerValue));
+			user.setEmail(userEmail.getText().toString());
+			user.setName(userName.getText().toString());
+			user.setPhone_number(userPhone.getText().toString());
+			user.setUsername(userScreenName.getText().toString());
+			db.addUser(user);
+			//db.addUser(new User(userName.getText().toString(),userEmail.getText().toString(),userPhone.getText().toString(),Integer.parseInt(spinnerValue)));
 			
-			Intent i  = new Intent(RegisterUserActivity.this, GymTabWidget.class);
-			i.putExtra("user_name", userName.getText().toString());
-			i.putExtra("id", res[0]);
+
 			startActivity(i);
 		}
 	}

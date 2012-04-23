@@ -1,7 +1,6 @@
 package com.cs4750.finalproject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;

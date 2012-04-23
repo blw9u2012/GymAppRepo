@@ -82,6 +82,7 @@ public class GymAppSignInActivity extends Activity {
 				String success = tokens[0]; 
 				
 				if(success.equals("success")){
+					
 					String user_name = tokens[1];
 					String user_id = tokens[2];
 					

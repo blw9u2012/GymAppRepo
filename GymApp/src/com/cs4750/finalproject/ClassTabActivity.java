@@ -79,7 +79,7 @@ public class ClassTabActivity extends ListActivity {
 		
 							userId = userId.replace("\n", "");
 							String userName = bundle.getString("user_name");
-							User user = db.getUser(Integer.parseInt(userId));
+							User user = db.getUser(userName);
 							//Toast.makeText(getApplicationContext(), user.getName(), Toast.LENGTH_LONG).show();
 							
 							//use the user's information to sign up to the class
@@ -152,7 +152,6 @@ public class ClassTabActivity extends ListActivity {
 		
 	}
 	private class SignUp extends AsyncTask<String, Void, String>{
-
 		@Override
 		protected String doInBackground(String... params) {
 			String userId = params[0];
