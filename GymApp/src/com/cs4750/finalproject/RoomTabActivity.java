@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -27,7 +28,7 @@ public class RoomTabActivity extends ListActivity{
         lv.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(RoomTabActivity.this);
 				builder.setMessage("Reserve this Room?")
 				       .setCancelable(true)
@@ -35,7 +36,22 @@ public class RoomTabActivity extends ListActivity{
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							//change availability on reserve table
+							Room r = roomList.get(position);
+							if(r.isAvailable()){
+								new ChangeRoomAvail().execute("0",r.getId());
+								
+								//reset list
+								roomList.clear();
+								new LoadRooms().execute(roomList);
+							}
+							else{
+								new ChangeRoomAvail().execute("1",r.getId());
+								
+								//reset list
+								roomList.clear();
+								new LoadRooms().execute(roomList);
+							}
+							
 						}
 					})
 				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -100,4 +116,22 @@ public class RoomTabActivity extends ListActivity{
     		
     	}
     }
+    private class ChangeRoomAvail extends AsyncTask <String, Void, String>{
+
+ 		@Override
+ 		protected String doInBackground(String... params) {
+ 			String availibility = params[0];
+ 			String id = params[1];
+ 			
+ 			ServerHandler sv = new ServerHandler();
+ 			String result = sv.changeAvailibility(availibility, id,"room");
+ 			return result;
+ 		}
+ 		
+ 		protected void onPostExecute(String result){
+ 			Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT);
+ 		}
+     	
+     }
+
 }
