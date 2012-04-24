@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -20,6 +21,11 @@ public class RoomTabActivity extends ListActivity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room_tab);
+		Bundle bundle = getIntent().getExtras();
+		String user_name = bundle.getString("user_name");
+		
+		TextView userTV = (TextView)findViewById(R.id.pageusername);
+		userTV.setText(user_name);
         
         roomList = new ArrayList<Room>();
 
@@ -95,12 +101,15 @@ public class RoomTabActivity extends ListActivity{
 	        	String name = tokens[1];
 	        	String floor = tokens[2];
 	        	int capacity = Integer.parseInt(tokens[3]);
-	        	int res = Integer.parseInt(tokens[4]);
+	        	int available = Integer.parseInt(tokens[4]);
 
 	        	//if res = 1 then the room is reserved meaning that the room is not available, if res = 0
 	        	//then the room is not reserved meaning th room is available...
 	        	Room room = new Room(name,id,floor,capacity);
-	        	if(res == 0){
+	        	if(available == 0){
+	        		room.setAvailable(false);
+	        	}
+	        	else{
 	        		room.setAvailable(true);
 	        	}
 	        	

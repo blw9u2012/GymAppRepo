@@ -1,41 +1,26 @@
 package com.cs4750.finalproject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import android.app.ExpandableListActivity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 public class HomeTabActivity extends ExpandableListActivity{
 
 	private ExpListAdapter adapter;
-/*	ArrayList<String> groups;
-	HashMap<String,ArrayList<String>> children;
-	static final String[] CATEGORIES = new String[] {"Exercise","Class","Meal"};
-	static final String[][] ENTRIES = new String[][]{
-		{
-			"Exercise,Barbell Row",
-			"Exercise,Incline Bench Press",
-			"Exercise,Leg Press"
-		},
-		{
-			"Class,Zumba",
-			"Class,Cycling",
-			"Class,Salas"
-		},
-		{
-			"Meal,Cheeseburger",
-			"Meal,Ham",
-			"Meal,Fish"
-		}
-	};*/
-	
-	
+
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_tab);
+        Bundle bundle = getIntent().getExtras();
+        String user_name = bundle.getString("user_name");
+        
+        TextView userTV = (TextView)findViewById(R.id.pageusername);
+        userTV.setText(user_name);
+        
 
         
         adapter = new ExpListAdapter(HomeTabActivity.this);

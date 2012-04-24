@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MachineTabActivity extends ListActivity{
@@ -21,9 +22,13 @@ public class MachineTabActivity extends ListActivity{
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.machine_tab);
+		Bundle bundle = getIntent().getExtras();
+		String user_name = bundle.getString("user_name");
+		
+		TextView userTV = (TextView)findViewById(R.id.pageusername);
+		userTV.setText(user_name);
         
         //Initialize the arraylist...
-        //ArrayList<String> passing = new ArrayList<String>();
         machineList = new ArrayList<Machine>();
         LoadMachines object = new LoadMachines();
         object.execute(machineList);

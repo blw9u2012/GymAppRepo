@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ClassTabActivity extends ListActivity {
@@ -22,6 +23,11 @@ public class ClassTabActivity extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_tab);
+		Bundle bundle = getIntent().getExtras();
+		String user_name = bundle.getString("user_name");
+		
+		TextView userTV = (TextView)findViewById(R.id.pageusername);
+		userTV.setText(user_name);
 
 		// Initialize the arraylist...
 		classList = new ArrayList<Class>();
