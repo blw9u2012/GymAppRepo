@@ -7,6 +7,7 @@ public class Machine {
 	private boolean available;
 	private String exercise_type;
 	private int id;
+	private String user;
 
 	public Machine(int id, String name, String body_focus,boolean available, String exercise_type) {
 		this.name = name;
@@ -58,5 +59,13 @@ public class Machine {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
 	}
 }

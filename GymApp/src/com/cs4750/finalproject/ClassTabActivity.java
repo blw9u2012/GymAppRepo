@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +25,7 @@ public class ClassTabActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_tab);
 		Bundle bundle = getIntent().getExtras();
-		String user_name = bundle.getString("user_name");
+		final String user_name = bundle.getString("user_name");
 		
 		TextView userTV = (TextView)findViewById(R.id.pageusername);
 		userTV.setText(user_name);
@@ -42,17 +43,20 @@ public class ClassTabActivity extends ListActivity {
 					final int position, long id) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						ClassTabActivity.this);
-				builder.setMessage("Check in to this Class: "+classList.get(position).getTitle())
+				builder.setMessage("View this Class: "+classList.get(position).getTitle())
 						.setCancelable(true)
 						.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 									@Override
 									public void onClick(DialogInterface dialog,	int which) {
-										// check in to class...
-										//String userId = String.valueOf(classList.get(position).getId());
-										String userId = "1";
+										//String userId = "1";
+										
 										String classId = String.valueOf(classList.get(position).getId());
-										new CheckIn().execute(userId,classId);
+										//new CheckIn().execute(userId,classId);
+										Intent i = new Intent(ClassTabActivity.this, ClassActivity.class);
+										i.putExtra("classId", classId);
+										i.putExtra("userName",user_name);
+										startActivity(i);
 									}
 								})
 						.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -66,7 +70,7 @@ public class ClassTabActivity extends ListActivity {
 				alert.show();
 			}
 		});
-		
+		//sign up for a class...
 		lv.setOnItemLongClickListener(new OnItemLongClickListener(){
 
 			@Override
@@ -142,21 +146,7 @@ public class ClassTabActivity extends ListActivity {
 
 		}
 	}
-	private class CheckIn extends AsyncTask<String, Void, String>{
-		@Override
-		protected String doInBackground(String... params) {
-			String userId = params[0];
-			String classId = params[1];
-			sv = new ServerHandler();
-			String result = sv.checkIn(userId, classId);
-			return result;
-		}
-		
-		protected void onPostExecute(String result){
-			Toast.makeText(ClassTabActivity.this, result, Toast.LENGTH_LONG);
-		}
-		
-	}
+
 	private class SignUp extends AsyncTask<String, Void, String>{
 		@Override
 		protected String doInBackground(String... params) {

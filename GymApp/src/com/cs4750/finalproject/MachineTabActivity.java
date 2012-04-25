@@ -3,6 +3,7 @@ package com.cs4750.finalproject;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -18,12 +19,15 @@ public class MachineTabActivity extends ListActivity{
 	private ArrayList<Machine> machineList;
 	private MachineAdapter machineListAdapter;
 	ListView lv;
-   
+	String user_name;
+	String user_id;
+	
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.machine_tab);
 		Bundle bundle = getIntent().getExtras();
-		String user_name = bundle.getString("user_name");
+		user_name = bundle.getString("user_name");
+	    user_id = bundle.getString("id");
 		
 		TextView userTV = (TextView)findViewById(R.id.pageusername);
 		userTV.setText(user_name);
@@ -52,21 +56,34 @@ public class MachineTabActivity extends ListActivity{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							Machine m = machineList.get(position);
-							String id = String.valueOf(m.getId());
+							final String id = String.valueOf(m.getId());
 							if(m.isAvailable()){
 								new ChangeMachineAvail().execute("0",id);
+								//set the user of the machine to current user
+								new ServerHandler().setMachineUser(user_id, id);
 								
 								//reset list
 								machineList.clear();
 								new LoadMachines().execute(machineList);
 							}
 							else{
-								Toast.makeText(getApplicationContext(), "Machine is currently unavailable", Toast.LENGTH_LONG).show();
-								new ChangeMachineAvail().execute("1",id);
+								//Toast.makeText(getApplicationContext(), "Machine is currently unavailable, are you user "+new ServerHandler().getMachineUser(id), Toast.LENGTH_LONG).show();
+								AlertDialog.Builder builder = new AlertDialog.Builder(MachineTabActivity.this);
+								builder.setTitle("Machine is currently unavailable, are you user "+new ServerHandler().getMachineUser(id)+"?");
+								builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										new ChangeMachineAvail().execute("1",id);
+
+										//update view...
+										machineList.clear();
+										new LoadMachines().execute(machineList);
+									}
+								});
 								
-								//update view...
-								machineList.clear();
-								new LoadMachines().execute(machineList);
+								
+								
 							}
 							
 						}

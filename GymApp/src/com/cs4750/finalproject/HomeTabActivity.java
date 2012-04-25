@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import android.app.ExpandableListActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeTabActivity extends ExpandableListActivity{
 
@@ -73,39 +77,25 @@ public class HomeTabActivity extends ExpandableListActivity{
         adapter.AddGroup("Meals", models);
 		
 	}
-	/*private ExpandableListAdapter setUpAdapter(){
-		groups = new ArrayList<String>();
-		children = new HashMap<String, ArrayList<String>>();
-        for(int i = 0; i < CATEGORIES.length;i++){
-        	groups.add(CATEGORIES[i]);
-        }
-        
-        for(int i = 0; i < ENTRIES.length; i++){
-        	for(int j = 0; j < ENTRIES[i].length; j++){
-        		addItem(ENTRIES[i][j]);
-        	}
-        }
-        ExpandableListAdapter mAdapter = new ExpandableListAdapter(HomeTabActivity.this,groups,children);
-		return mAdapter;
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.my_options_menu, menu);
+	    return true;
 	}
-	public void addItem(String child) {
-		
-		int tag_index = child.indexOf(",");
-		int length = child.length();
-		String child_tag = child.substring(0, tag_index);	
-		String child_value = child.substring(tag_index+1, length);
-		 
-		//if the arraylist of groups does not contain a group name, add it to the arraylist...
-		if (!groups.contains(child_tag)) {
-			groups.add(child_tag);
-		}
-		
-		//else the itemname is already a member of the group arraylist...
-		//int index = groups.indexOf(child_tag); //returns the group in question...
-		//if(children.size() < index + 1){
-		if(!children.containsKey(child_tag)){
-			children.put(child_tag,(new ArrayList<String>()));
-		}
-		children.get(child_tag).add(child_value);
-	}*/
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.about:
+	        	Toast.makeText(getApplicationContext(), "A Databases Project App", Toast.LENGTH_LONG);
+	            return true;
+	        case R.id.viewActivity:
+	        	Toast.makeText(getApplicationContext(), "Recent Activity", Toast.LENGTH_LONG);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 }

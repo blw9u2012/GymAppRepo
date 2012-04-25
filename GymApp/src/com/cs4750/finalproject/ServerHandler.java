@@ -111,6 +111,86 @@ public class ServerHandler {
 		return result;
 	}
 	
+	public String getUserId(String data){
+		
+		nameValuePairs.add(new BasicNameValuePair("command","getUserId"));
+		nameValuePairs.add(new BasicNameValuePair("user_name",data));
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return result;
+	}
+	
+	public void setMachineUser(String userId, String machineId){
+		
+		nameValuePairs.add(new BasicNameValuePair("command","setMachineUser"));
+		nameValuePairs.add(new BasicNameValuePair("userId",userId));
+		nameValuePairs.add(new BasicNameValuePair("machineId",machineId));
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+	}
+	
+	public String getMachineUser( String machineId){
+		
+		nameValuePairs.add(new BasicNameValuePair("command","getMachineUser"));
+		nameValuePairs.add(new BasicNameValuePair("machineId",machineId));
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return result;
+	}
 	public ArrayList<String> createPostRequestArrayList(String data){
 		dataResult = new ArrayList<String>();
 		nameValuePairs.add(new BasicNameValuePair("command",data));
@@ -197,6 +277,34 @@ public class ServerHandler {
 		nameValuePairs.add(new BasicNameValuePair("avail",avail));
 		nameValuePairs.add(new BasicNameValuePair("id",id));
 		nameValuePairs.add(new BasicNameValuePair("type", type));
+		String line;
+		try{
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+		e.printStackTrace();
+	}
+	nameValuePairs.clear();
+	return result;
+		
+	}
+	
+	public String getClass(String classId){
+		nameValuePairs.add(new BasicNameValuePair("command","getClass"));
+		nameValuePairs.add(new BasicNameValuePair("classId",classId));
 		String line;
 		try{
 			HttpPost httpPost = new HttpPost(server);
