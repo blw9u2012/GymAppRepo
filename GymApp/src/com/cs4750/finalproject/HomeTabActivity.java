@@ -91,7 +91,7 @@ public class HomeTabActivity extends ExpandableListActivity{
 	        case R.id.about:
 	        	Toast.makeText(getApplicationContext(), "A Databases Project App", Toast.LENGTH_LONG);
 	            return true;
-	        case R.id.viewActivity:
+	        case R.id.viewClasses:
 	        	Toast.makeText(getApplicationContext(), "Recent Activity", Toast.LENGTH_LONG);
 	            return true;
 	        default:

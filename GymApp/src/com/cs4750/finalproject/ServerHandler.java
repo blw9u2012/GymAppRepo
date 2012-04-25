@@ -111,6 +111,34 @@ public class ServerHandler {
 		return result;
 	}
 	
+	public ArrayList<String> getUserMachines(String userId){
+		nameValuePairs.add(new BasicNameValuePair("command","getUserMachines"));
+		nameValuePairs.add(new BasicNameValuePair("userId", userId));
+		dataResult = new ArrayList<String>();
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+				dataResult.add(line);
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return dataResult;
+	}
+	
 	public String getUserId(String data){
 		
 		nameValuePairs.add(new BasicNameValuePair("command","getUserId"));
@@ -137,6 +165,7 @@ public class ServerHandler {
 		nameValuePairs.clear();
 		return result;
 	}
+	
 	
 	public void setMachineUser(String userId, String machineId){
 		

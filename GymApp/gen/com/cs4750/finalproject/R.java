@@ -18,7 +18,8 @@ public final class R {
         public static final int uva_logo=0x7f020004;
     }
     public static final class id {
-        public static final int about=0x7f07002d;
+        public static final int RefreshList=0x7f07002d;
+        public static final int about=0x7f07002f;
         public static final int agePhoneRow=0x7f07001c;
         public static final int classAvailibity=0x7f070011;
         public static final int classCheckInButton=0x7f070009;
@@ -64,7 +65,8 @@ public final class R {
         public static final int tvChild=0x7f070000;
         public static final int tvGroup=0x7f07000f;
         public static final int userPageLinLayout=0x7f07000a;
-        public static final int viewActivity=0x7f07002e;
+        public static final int viewClasses=0x7f070030;
+        public static final int viewMachines=0x7f07002e;
     }
     public static final class layout {
         public static final int child_row=0x7f030000;
@@ -82,7 +84,8 @@ public final class R {
         public static final int tab_host=0x7f03000c;
     }
     public static final class menu {
-        public static final int my_options_menu=0x7f060000;
+        public static final int machine_menu=0x7f060000;
+        public static final int my_options_menu=0x7f060001;
     }
     public static final class raw {
         public static final int user=0x7f040000;
