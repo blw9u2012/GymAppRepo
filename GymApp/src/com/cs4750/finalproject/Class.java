@@ -14,7 +14,7 @@ public class Class {
 
 	private boolean availible;
 	
-	public Class(String title, int id, String instructor, int startTime,	int endTime, boolean avail) {
+	public Class(String title, int id, String instructor, int startTime, int endTime, boolean avail) {
 		this.title = title;
 		this.id = id;
 		this.instructor = instructor;

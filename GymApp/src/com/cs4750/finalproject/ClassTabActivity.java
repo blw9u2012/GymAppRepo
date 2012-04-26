@@ -2,6 +2,7 @@ package com.cs4750.finalproject;
 
 import java.util.ArrayList;
 
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -22,8 +23,6 @@ import android.widget.Toast;
 public class ClassTabActivity extends ListActivity {
 	private ArrayList<Class> classList;
 	private ClassAdapter classListAdapter;
-	private ServerHandler sv;
-
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.class_tab);
@@ -86,13 +85,13 @@ public class ClassTabActivity extends ListActivity {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							DatabaseHandler db = new DatabaseHandler(getApplicationContext(), null, null,1);
+							//DatabaseHandler db = new DatabaseHandler(getApplicationContext(), null, null,1);
 							Bundle bundle = getIntent().getExtras();
 							String userId = bundle.getString("id");
 		
 							userId = userId.replace("\n", "");
-							String userName = bundle.getString("user_name");
-							User user = db.getUser(userName);
+							//String userName = bundle.getString("user_name");
+							//User user = db.getUser(userName);
 							//Toast.makeText(getApplicationContext(), user.getName(), Toast.LENGTH_LONG).show();
 							
 							//use the user's information to sign up to the class
@@ -111,7 +110,7 @@ public class ClassTabActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.my_options_menu, menu);
+	    inflater.inflate(R.menu.classes_menu, menu);
 	    return true;
 	}
 	
@@ -119,12 +118,10 @@ public class ClassTabActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
-	        case R.id.about:
-	        	Toast.makeText(getApplicationContext(), "A Databases Project App", Toast.LENGTH_LONG);
-	            return true;
-	        case R.id.viewClasses:
-	        	Toast.makeText(getApplicationContext(), "Recent Activity", Toast.LENGTH_LONG);
-	            return true;
+	    case R.id.RefreshList:
+        	classList.clear();
+        	new LoadClasses().execute(classList);
+        	return true;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -167,6 +164,7 @@ public class ClassTabActivity extends ListActivity {
 
 		protected void onPostExecute(ArrayList<Class> result) {
 			classListAdapter = new ClassAdapter(ClassTabActivity.this,R.layout.list_item_classes, classList);
+			classListAdapter.notifyDataSetChanged();
 			setListAdapter(classListAdapter);
 
 		}
@@ -187,4 +185,5 @@ public class ClassTabActivity extends ListActivity {
 		}
 		
 	}
+	
 }

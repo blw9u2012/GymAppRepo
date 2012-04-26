@@ -139,6 +139,33 @@ public class ServerHandler {
 		return dataResult;
 	}
 	
+	public ArrayList<String> getUserClasses(String userId){
+		nameValuePairs.add(new BasicNameValuePair("command","getUserClasses"));
+		nameValuePairs.add(new BasicNameValuePair("userId", userId));
+		dataResult = new ArrayList<String>();
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+				dataResult.add(line);
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return dataResult;
+	}
 	public String getUserId(String data){
 		
 		nameValuePairs.add(new BasicNameValuePair("command","getUserId"));

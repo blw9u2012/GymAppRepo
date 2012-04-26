@@ -2,81 +2,36 @@ package com.cs4750.finalproject;
 
 import java.util.ArrayList;
 
-import android.app.ExpandableListActivity;
+import android.app.ListActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ExpandableListView;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomeTabActivity extends ExpandableListActivity{
-
-	private ExpListAdapter adapter;
+public class HomeTabActivity extends ListActivity{
+	 String user_name, user_id;
+	 ArrayAdapter<String> adapter;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_tab);
         Bundle bundle = getIntent().getExtras();
-        String user_name = bundle.getString("user_name");
+        user_name = bundle.getString("user_name");
+        user_id = bundle.getString("id");
         
         TextView userTV = (TextView)findViewById(R.id.pageusername);
         userTV.setText(user_name);
         
-
-        
-        adapter = new ExpListAdapter(HomeTabActivity.this);
-        setUpAdapter();
-        setListAdapter(adapter);
-        ExpandableListView elv = getExpandableListView();
-        elv.setTextFilterEnabled(true);
-        //listview.setOnItemClickListener(OnClickingListItem());
-        
-        
-        //ExpandableListView listView = (ExpandableListView)findViewById(R.id.listView);
-        //adapter = setUpAdapter();
-        //listView.setAdapter(adapter);
-        //ListView lv = getListView();
-        //lv.setTextFilterEnabled(true);
-        //setListAdapter(new ArrayAdapter<String>(HomeTabActivity.this, R.layout.list_item, COUNTRIES));
-        
-        //lv.setOnItemClickListener(new OnItemClickListener() {
-          //public void onItemClick(AdapterView<?> parent, View view,
-            //  int position, long id) {
-            // When clicked, show a toast with the TextView text
-            //Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-                //Toast.LENGTH_SHORT).show();
-          //}
-        //});
-        
-/*        TextView textview = new TextView(this);
-        textview.setText("This is the Home tab");
-        setContentView(textview);*/
+        ArrayList<String> machineActivity = new ArrayList<String>();
+        ArrayList<String> classActivity = new ArrayList<String>();
+        new LoadRecentActivity().execute(machineActivity,classActivity);
     }
-	
-	private void setUpAdapter(){
-		ArrayList<String> models = new ArrayList<String>();
-        models.add("Barbell Row");
-        models.add("Inclined Bench Press");
-        models.add("Leg Press");
-        adapter.AddGroup("Exercises", models);
-        
-        models = new ArrayList<String>();
-        models.add("Salsa");
-        models.add("Zumba");
-        models.add("Cycling");
-        adapter.AddGroup("Classes", models);
-        
-        //reset models...
-        models = new ArrayList<String>();
-        models.add("Cheeseburger");
-        models.add("Ham");
-        models.add("Salmon");
-        adapter.AddGroup("Meals", models);
-		
-	}
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -98,4 +53,50 @@ public class HomeTabActivity extends ExpandableListActivity{
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
+	
+    private class LoadRecentActivity extends AsyncTask <ArrayList<String>, Void, ArrayList<String>>{
+
+    	
+		@Override
+		protected ArrayList<String> doInBackground(ArrayList<String>... params) {
+	        ServerHandler sv = new ServerHandler();
+	        ArrayList<String> machines = params[0];
+	        ArrayList<String> classes = params[1];
+	   	 ArrayList<String> finalList = new ArrayList<String>();
+	        
+	      //first load user's recently used machines...
+	        machines = sv.getUserMachines(user_id);
+	        classes = sv.getUserClasses(user_id);
+	        
+	        for(int i = 0; i < machines.size(); i++){
+	        	String machine = machines.get(i);
+	        	machine.trim();
+	        	String delims = "[,]";
+	        	String[] tokens = machine.split(delims);
+	        	
+	        	String name = tokens[1];
+	        	finalList.add(name);
+	        	
+	        }
+	        
+	        for(int i = 0; i < classes.size(); i++){
+	        	String cls = classes.get(i);
+	        	cls.trim();
+	        	String delims = "[,]";
+	        	String[] tokens = cls.split(delims);
+	        	
+	        	String name = tokens[1];
+	        	finalList.add(name);
+	        	
+	        }
+	        
+			return finalList;
+		}
+    	protected void onPostExecute(ArrayList<String> result){
+    		adapter = new ArrayAdapter<String>(HomeTabActivity.this, android.R.layout.simple_list_item_1,result);
+    		adapter.notifyDataSetChanged();
+            setListAdapter(adapter);
+    		
+    	}
+    }
 }

@@ -2,11 +2,15 @@ package com.cs4750.finalproject;
 
 import java.util.ArrayList;
 
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -121,6 +125,7 @@ public class RoomTabActivity extends ListActivity{
 		}
     	protected void onPostExecute(ArrayList<Room> result){
     		roomListAdapter = new RoomAdapter(RoomTabActivity.this, R.layout.list_item_rooms,roomList);
+    		roomListAdapter.notifyDataSetChanged();
             setListAdapter(roomListAdapter);
     		
     	}
@@ -142,5 +147,26 @@ public class RoomTabActivity extends ListActivity{
  		}
      	
      }
+    
+    @Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.room_menu, menu);
+	    return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.RefreshList:
+	        	roomList.clear();
+	        	new LoadRooms().execute(roomList);
+	        	return true;
+	        	
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 
 }

@@ -67,7 +67,7 @@ public class MachineTabActivity extends ListActivity{
 				//else the machine is currently being used 
 				else{
 					AlertDialog.Builder machineAlertDialog = new AlertDialog.Builder(MachineTabActivity.this);
-					machineAlertDialog.setTitle(selectedMachine.getName());
+					machineAlertDialog.setTitle(user_name);
 					machineAlertDialog.setMessage("Do you want to release the machine "+selectedMachine.getName());
 					machineAlertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 						
@@ -75,7 +75,7 @@ public class MachineTabActivity extends ListActivity{
 						public void onClick(DialogInterface dialog, int which) {
 							//change machine availibility...
 							new ChangeMachineAvail().execute("1",selectedMachineId);
-							new ServerHandler().setMachineUser("", selectedMachineId);
+							new ServerHandler().setMachineUser("0", selectedMachineId);
 							
 							//reset list to reflect changes...
 							machineList.clear();
@@ -194,6 +194,7 @@ public class MachineTabActivity extends ListActivity{
 		}
     	protected void onPostExecute(ArrayList<Machine> result){
     		machineListAdapter = new MachineAdapter(MachineTabActivity.this, R.layout.list_item_machines,machineList);
+    		machineListAdapter.notifyDataSetChanged();
             setListAdapter(machineListAdapter);
     		
     	}
@@ -253,6 +254,7 @@ public class MachineTabActivity extends ListActivity{
 		        	userMachineList.add(new Machine(id,name,body_focus,false,exercise_type));
 	        	}
 	        	machineListAdapter = new MachineAdapter(MachineTabActivity.this, R.layout.list_item_machines,userMachineList);
+	        	machineListAdapter.notifyDataSetChanged();
 	        	setListAdapter(machineListAdapter);
 	        	return true;
 	        default:
