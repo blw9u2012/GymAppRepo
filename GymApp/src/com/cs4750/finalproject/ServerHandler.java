@@ -62,11 +62,14 @@ public class ServerHandler {
 		nameValuePairs.add(new BasicNameValuePair("phone",phone));
 		nameValuePairs.add(new BasicNameValuePair("username",screenName));
 		nameValuePairs.add(new BasicNameValuePair("password",pw));
-		
-		for(int i = 0; i < user.length; i++){
-			nameValuePairs.add(new BasicNameValuePair("userType"+String.valueOf(i+1),String.valueOf(user[i])));
-		}
-		
+		nameValuePairs.add(new BasicNameValuePair("userType1",String.valueOf(user[0])));
+		nameValuePairs.add(new BasicNameValuePair("userType2",String.valueOf(user[1])));
+		nameValuePairs.add(new BasicNameValuePair("userType3",String.valueOf(user[2])));
+		nameValuePairs.add(new BasicNameValuePair("userType4",String.valueOf(user[3])));
+		nameValuePairs.add(new BasicNameValuePair("userType5",String.valueOf(user[4])));
+		nameValuePairs.add(new BasicNameValuePair("userType6",String.valueOf(user[5])));
+		nameValuePairs.add(new BasicNameValuePair("userType7",String.valueOf(user[6])));
+			
 		String line;
 		try {
 			HttpPost httpPost = new HttpPost(server);

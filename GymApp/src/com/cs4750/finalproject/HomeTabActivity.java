@@ -46,8 +46,12 @@ public class HomeTabActivity extends ListActivity{
 	        case R.id.about:
 	        	Toast.makeText(getApplicationContext(), "A Databases Project App", Toast.LENGTH_LONG);
 	            return true;
-	        case R.id.viewClasses:
+	        case R.id.viewRecentActivity:
 	        	Toast.makeText(getApplicationContext(), "Recent Activity", Toast.LENGTH_LONG);
+	        	ArrayList<String> machineActivity = new ArrayList<String>();
+	        	ArrayList<String> classActivity = new ArrayList<String>();
+	        	
+	        	new LoadRecentActivity().execute(machineActivity, classActivity);
 	            return true;
 	        default:
 	            return super.onOptionsItemSelected(item);

@@ -72,8 +72,8 @@ public final class R {
         public static final int tvChild=0x7f070000;
         public static final int tvGroup=0x7f07000f;
         public static final int userPageLinLayout=0x7f07000a;
-        public static final int viewClasses=0x7f070037;
         public static final int viewMachines=0x7f070035;
+        public static final int viewRecentActivity=0x7f070037;
     }
     public static final class layout {
         public static final int child_row=0x7f030000;
