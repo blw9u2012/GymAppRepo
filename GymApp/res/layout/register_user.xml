@@ -78,11 +78,48 @@
             android:layout_height="wrap_content"
             android:hint="Confirm your password"
             android:inputType="textPassword" />
+
         <CheckBox
-            android:id="@+id/registerUserCheckBox"
+            android:id="@+id/registerPatronCheckBox"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Would you like an email confirmation?" />
+            android:text="Patron" />
+
+        <CheckBox
+            android:id="@+id/registerInstructorCheckBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Instructor" />
+
+        <CheckBox
+            android:id="@+id/registerNutritionistCheckBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Nutritionist" />
+
+        <CheckBox
+            android:id="@+id/registerPersonalTrainerCheckBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Personal Trainer" />
+
+        <CheckBox
+            android:id="@+id/registerMassageTherapistCheckBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Massage Therapist" />
+
+        <CheckBox
+            android:id="@+id/registerClubCheckBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Club" />
+        
+        <CheckBox
+            android:id="@+id/registerStaffCheckBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Staff" />
 
         <Button
             android:id="@+id/registerUserButton"

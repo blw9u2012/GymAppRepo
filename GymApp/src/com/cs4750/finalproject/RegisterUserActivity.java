@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,6 +25,16 @@ public class RegisterUserActivity extends Activity{
 	EditText userScreenName;
 	EditText userPassword;
 	EditText confirmUserPassword;
+	
+	CheckBox patron, personalTrainer, instructor, nutritionist, club, massageTherapist, staff;
+	boolean patronIsChecked;
+	boolean personalTrainerIsChecked;
+	boolean instructorIsChecked;
+	boolean nutritionistIsChecked;
+	boolean clubIsChecked;
+	boolean massageTherapistIsChecked;
+	boolean staffIsChecked;
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register_user);
@@ -58,6 +69,17 @@ public class RegisterUserActivity extends Activity{
 		userScreenName = (EditText)findViewById(R.id.registerUserScreenName);
 		userPassword = (EditText)findViewById(R.id.registerUserPassword);
 		confirmUserPassword = (EditText)findViewById(R.id.registerUserConfirmPassword);
+		
+		patron = (CheckBox)findViewById(R.id.registerPatronCheckBox);
+		personalTrainer = (CheckBox)findViewById(R.id.registerPersonalTrainerCheckBox);
+		instructor = (CheckBox)findViewById(R.id.registerInstructorCheckBox);
+		nutritionist = (CheckBox)findViewById(R.id.registerNutritionistCheckBox);
+		club = (CheckBox)findViewById(R.id.registerClubCheckBox);
+		massageTherapist = (CheckBox)findViewById(R.id.registerMassageTherapistCheckBox);
+		staff = (CheckBox)findViewById(R.id.registerStaffCheckBox);
+		
+
+		
 		Button registerButton = (Button)findViewById(R.id.registerUserButton);
 		
 		registerButton.setOnClickListener(new OnClickListener(){
@@ -71,6 +93,14 @@ public class RegisterUserActivity extends Activity{
 				String user_password = userPassword.getText().toString();
 				String confirm_user_password = confirmUserPassword.getText().toString();
 				
+				patronIsChecked = patron.isChecked();
+				personalTrainerIsChecked = personalTrainer.isChecked();
+				instructorIsChecked = instructor.isChecked();
+				nutritionistIsChecked = nutritionist.isChecked();
+				clubIsChecked = club.isChecked();
+				massageTherapistIsChecked = massageTherapist.isChecked();
+				staffIsChecked = staff.isChecked();
+			
 				if(user_password.equals(confirm_user_password)){
 					new AddUser().execute(user_name,spinnerValue,user_email,user_phone,user_screenName, user_password);
 				}
@@ -78,15 +108,7 @@ public class RegisterUserActivity extends Activity{
 					Toast.makeText(RegisterUserActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
 				}
 			}	
-		});
-		
-		
-		
-		
-		/*DatabaseHandler db = new DatabaseHandler(this, null, null, 1);
-		int count = db.getUserCount();
-		Toast.makeText(this, "Hi", Toast.LENGTH_LONG).show();*/
-		
+		});		
 	}
 	private class AddUser extends AsyncTask<String, Void, String>{
 
@@ -98,9 +120,14 @@ public class RegisterUserActivity extends Activity{
 			String phone = params[3];
 			String screen_name = params[4];
 			String password = params[5]; 
+			boolean[] typesOfUsers = new boolean[] { 
+					patronIsChecked,personalTrainerIsChecked,instructorIsChecked,nutritionistIsChecked,
+					clubIsChecked,massageTherapistIsChecked,staffIsChecked
+					
+			};
 			
 			ServerHandler sv = new ServerHandler();
-			String result = sv.addUser(name, age, email, phone, screen_name, password);
+			String result = sv.addUser(name, age, email, phone, screen_name, password,typesOfUsers);
 			return result;
 		}
 		

@@ -54,7 +54,7 @@ public class ServerHandler {
 		nameValuePairs.clear();
 		return result;
 	}
-	public String addUser(String name, String age, String email, String phone, String screenName, String pw){
+	public String addUser(String name, String age, String email, String phone, String screenName, String pw, boolean... user){
 		nameValuePairs.add(new BasicNameValuePair("command","addUser"));
 		nameValuePairs.add(new BasicNameValuePair("name",name));
 		nameValuePairs.add(new BasicNameValuePair("age",age));
@@ -62,6 +62,11 @@ public class ServerHandler {
 		nameValuePairs.add(new BasicNameValuePair("phone",phone));
 		nameValuePairs.add(new BasicNameValuePair("username",screenName));
 		nameValuePairs.add(new BasicNameValuePair("password",pw));
+		
+		for(int i = 0; i < user.length; i++){
+			nameValuePairs.add(new BasicNameValuePair("userType"+String.valueOf(i+1),String.valueOf(user[i])));
+		}
+		
 		String line;
 		try {
 			HttpPost httpPost = new HttpPost(server);
