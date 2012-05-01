@@ -20,6 +20,7 @@ import android.widget.Toast;
 public class RegisterUserActivity extends Activity{
 	String spinnerValue;
 	EditText userName;
+	EditText userLastName;
 	EditText userEmail;
 	EditText userPhone;
 	EditText userScreenName;
@@ -64,6 +65,7 @@ public class RegisterUserActivity extends Activity{
 		
 		//get all of users information...
 		userName = (EditText)findViewById(R.id.registerUserName);
+		userLastName = (EditText)findViewById(R.id.registerUserLastName);
 		userEmail = (EditText)findViewById(R.id.registerUserEmail);
 		userPhone = (EditText)findViewById(R.id.registerUserPhone);
 		userScreenName = (EditText)findViewById(R.id.registerUserScreenName);
@@ -87,6 +89,7 @@ public class RegisterUserActivity extends Activity{
 			@Override
 			public void onClick(View v) {
 				String user_name = userName.getText().toString();
+				String user_last_name = userLastName.getText().toString();
 				String user_email = userEmail.getText().toString();
 				String user_phone = userPhone.getText().toString();
 				String user_screenName = userScreenName.getText().toString();
@@ -115,11 +118,12 @@ public class RegisterUserActivity extends Activity{
 		@Override
 		protected String doInBackground(String... params) {
 			String name = params[0];
-			String age = params[1];
-			String email = params[2];
-			String phone = params[3];
-			String screen_name = params[4];
-			String password = params[5]; 
+			String lastname = params[1];
+			String age = params[2];
+			String email = params[3];
+			String phone = params[4];
+			String screen_name = params[5];
+			String password = params[6]; 
 			boolean[] typesOfUsers = new boolean[] { 
 					patronIsChecked,personalTrainerIsChecked,instructorIsChecked,nutritionistIsChecked,
 					clubIsChecked,massageTherapistIsChecked,staffIsChecked
@@ -127,7 +131,7 @@ public class RegisterUserActivity extends Activity{
 			};
 			
 			ServerHandler sv = new ServerHandler();
-			String result = sv.addUser(name, age, email, phone, screen_name, password,typesOfUsers);
+			String result = sv.addUser(name, lastname, age, email, phone, screen_name, password,typesOfUsers);
 			return result;
 		}
 		
@@ -147,6 +151,7 @@ public class RegisterUserActivity extends Activity{
 			user.setAge(Integer.parseInt(spinnerValue));
 			user.setEmail(userEmail.getText().toString());
 			user.setName(userName.getText().toString());
+			user.setLastName(userLastName.getText().toString());
 			user.setPhone_number(userPhone.getText().toString());
 			user.setUsername(userScreenName.getText().toString());
 			db.addUser(user);

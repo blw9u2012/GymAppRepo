@@ -28,6 +28,7 @@ public class ClassTabActivity extends ListActivity {
 		setContentView(R.layout.class_tab);
 		Bundle bundle = getIntent().getExtras();
 		final String user_name = bundle.getString("user_name");
+		final String user_id = bundle.getString("id");
 		
 		TextView userTV = (TextView)findViewById(R.id.pageusername);
 		userTV.setText(user_name);
@@ -58,6 +59,7 @@ public class ClassTabActivity extends ListActivity {
 										Intent i = new Intent(ClassTabActivity.this, ClassActivity.class);
 										i.putExtra("classId", classId);
 										i.putExtra("userName",user_name);
+										i.putExtra("id",user_id);
 										startActivity(i);
 									}
 								})

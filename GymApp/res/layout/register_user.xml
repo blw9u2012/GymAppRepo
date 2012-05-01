@@ -26,7 +26,14 @@
             android:id="@+id/registerUserName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Name"
+            android:hint="Your First Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/registerUserLastName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Your Last Name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -114,7 +121,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Club" />
-        
+
         <CheckBox
             android:id="@+id/registerStaffCheckBox"
             android:layout_width="fill_parent"

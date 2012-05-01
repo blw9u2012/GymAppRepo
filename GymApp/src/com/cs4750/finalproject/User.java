@@ -4,6 +4,7 @@ public class User {
 
 	private int id;
 	private String name;
+	private String lastName;
 	private String email;
 	private String phone_number;
 	private int age;
@@ -95,6 +96,14 @@ public class User {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 	
 	

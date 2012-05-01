@@ -37,13 +37,13 @@ public class ClassAdapter extends ArrayAdapter<Class>{
 		Class c = classList.get(position);
 		if (c != null) {
 			TextView tt = (TextView) v.findViewById(R.id.className);
-			TextView mt = (TextView) v.findViewById(R.id.classLocation);
+			TextView mt = (TextView) v.findViewById(R.id.classInstructor);
 			TextView bt = (TextView) v.findViewById(R.id.classEnrollment);
 			if (tt != null) {
 				tt.setText("Name: " + c.getTitle());
 			}
 			if (mt != null) {
-				mt.setText("Location: " + c.getLocation());
+				mt.setText("Instructor: " + c.getInstructor());
 			}
 			if (bt != null) {
 				mt.setText("Enrolled: " + c.getEnrolled() + " Capacity: "+c.getCapactity());
