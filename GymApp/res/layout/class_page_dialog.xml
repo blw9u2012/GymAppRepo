@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/classPageRelLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- First row has 2 columns... -->
+
+        
+        <TextView
+            android:id="@+id/classTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Example Class..."
+            android:textSize="20sp" />
+    
+
+        <TextView
+            android:id="@+id/classInstructor"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Instructor Name..." />
+        <TextView
+            android:id="@+id/classDay"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Day..." />
+
+        <TextView
+            android:id="@+id/classPageLocation"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Location" />
+
+        <TextView
+            android:id="@+id/classPageEnrollmentInfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Enrolled..." />
+
+    <TextView
+        android:id="@+id/classPageDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Description" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/classSignUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sign Up" />
+
+        <Button
+            android:id="@+id/classCheckInButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/classSignUpButton"
+            android:layout_weight="1"
+            android:text="Check In" />
+    </LinearLayout>
+
+</LinearLayout>

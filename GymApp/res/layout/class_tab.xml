@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/userPageLinLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+        	
+    <TableLayout android:id="@+id/info_row"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"	
+        android:stretchColumns="1">
+        
+        <TableRow>
+    		<TextView android:id="@+id/pageusername"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+        		android:layout_column="1"
+        		android:padding="3dip"
+        		android:text="User's Name.." />
+    
+    		<TextView android:id="@+id/date"
+        		android:layout_width="fill_parent"
+        		android:layout_height="wrap_content"
+        		android:padding="3dip"
+        		android:text="April 2nd" />
+	   	</TableRow>
+	</TableLayout> 
+	
+        <TextView android:id="@+id/classTitleTV"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Available Classes" />
+        
+        <ListView android:id="@+id/@android:list"
+            android:choiceMode="singleChoice"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">            
+        </ListView>
+            
+            
+</LinearLayout>

@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/RefreshList"
+        android:title="Refresh List"/>
+
+    <item
+        android:id="@+id/viewMachines"
+        android:title="View Recently Used Machines"/>
+
+</menu>
