@@ -57,7 +57,7 @@ public class ServerHandler {
 	public String addUser(String name, String lastName, String age, String email, String phone, String screenName, String pw, boolean... user){
 		nameValuePairs.add(new BasicNameValuePair("command","addUser"));
 		nameValuePairs.add(new BasicNameValuePair("name",name));
-		nameValuePairs.add(new BasicNameValuePair("lastname",name));
+		nameValuePairs.add(new BasicNameValuePair("lastname",lastName));
 		nameValuePairs.add(new BasicNameValuePair("age",age));
 		nameValuePairs.add(new BasicNameValuePair("email",email));
 		nameValuePairs.add(new BasicNameValuePair("phone",phone));

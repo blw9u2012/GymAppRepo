@@ -105,7 +105,7 @@ public class RegisterUserActivity extends Activity{
 				staffIsChecked = staff.isChecked();
 			
 				if(user_password.equals(confirm_user_password)){
-					new AddUser().execute(user_name,spinnerValue,user_email,user_phone,user_screenName, user_password);
+					new AddUser().execute(user_name,user_last_name,spinnerValue,user_email,user_phone,user_screenName, user_password);
 				}
 				else{
 					Toast.makeText(RegisterUserActivity.this, "Passwords don't match", Toast.LENGTH_LONG).show();
