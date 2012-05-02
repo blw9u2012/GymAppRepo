@@ -152,11 +152,13 @@ public class ClassTabActivity extends ListActivity {
 				int et = Integer.parseInt(tokens[4]);
 				int cap = Integer.parseInt(tokens[5]);
 				int enrolled = Integer.parseInt(tokens[6]);
+				String instructor = tokens[7];
 				
 				//check to see if the class is full or not...
 				if(enrolled < cap){
 					Class c = new Class(id, name, location, st,et, cap, enrolled);
 					c.setAvailible(true);
+					c.setInstructor(instructor);
 					classList.add(c);
 				}
 			}

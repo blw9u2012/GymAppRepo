@@ -32,7 +32,8 @@ public class MachineAdapter extends ArrayAdapter<Machine> {
 			TextView tt = (TextView) v.findViewById(R.id.machineName);
 			TextView bt = (TextView) v.findViewById(R.id.machineAvailibity);
 			if (tt != null) {
-				tt.setText("Name: " + m.getName());
+				tt.setText(m.getName());
+				
 			}
 			if (bt != null) {
 				bt.setText("Availibility: " + m.isAvailable());

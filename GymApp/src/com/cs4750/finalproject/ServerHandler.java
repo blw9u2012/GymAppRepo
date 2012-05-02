@@ -337,8 +337,8 @@ public class ServerHandler {
 		return result;
 	}
 	//for machines
-	public String changeAvailibility(String avail, String id, String type){
-		nameValuePairs.add(new BasicNameValuePair("command","changeAvailibility"));
+	public String changeAvailability(String avail, String id, String type){
+		nameValuePairs.add(new BasicNameValuePair("command","changeAvailability"));
 		nameValuePairs.add(new BasicNameValuePair("avail",avail));
 		nameValuePairs.add(new BasicNameValuePair("id",id));
 		nameValuePairs.add(new BasicNameValuePair("type", type));

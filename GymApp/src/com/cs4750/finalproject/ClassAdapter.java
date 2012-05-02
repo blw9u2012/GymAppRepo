@@ -46,7 +46,7 @@ public class ClassAdapter extends ArrayAdapter<Class>{
 				mt.setText("Instructor: " + c.getInstructor());
 			}
 			if (bt != null) {
-				mt.setText("Enrolled: " + c.getEnrolled() + " Capacity: "+c.getCapactity());
+				bt.setText("Enrolled: " + c.getEnrolled() + " Capacity: "+c.getCapactity());
 			}
 		}
 		return v;

@@ -208,7 +208,7 @@ public class MachineTabActivity extends ListActivity{
 			String id = params[1];
 			
 			ServerHandler sv = new ServerHandler();
-			String result = sv.changeAvailibility(availibility, id,"machine");
+			String result = sv.changeAvailability(availibility, id,"machine");
 			return result;
 		}
 		

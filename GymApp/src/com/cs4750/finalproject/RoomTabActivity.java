@@ -138,7 +138,7 @@ public class RoomTabActivity extends ListActivity{
  			String id = params[1];
  			
  			ServerHandler sv = new ServerHandler();
- 			String result = sv.changeAvailibility(availibility, id,"room");
+ 			String result = sv.changeAvailability(availibility, id,"room");
  			return result;
  		}
  		
