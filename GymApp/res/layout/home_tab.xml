@@ -33,7 +33,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Recent Class Signups and Used Machines" />
+        android:text="Recent Class Signups" />
 
     <ListView
         android:id="@+id/@android:list"

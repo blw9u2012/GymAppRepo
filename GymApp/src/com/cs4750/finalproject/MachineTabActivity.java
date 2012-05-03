@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -98,63 +97,7 @@ public class MachineTabActivity extends ListActivity{
 	}
 	        
 		
-/*				AlertDialog.Builder builder = new AlertDialog.Builder(MachineTabActivity.this);
-				builder.setMessage("Use this Machine: " + machineList.get(position).getName())
-				       .setCancelable(true)
-				       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Machine m = machineList.get(position);
-							final String id = String.valueOf(m.getId());
-							if(m.isAvailable()){
-								new ChangeMachineAvail().execute("0",id);
-								//set the user of the machine to current user
-								new ServerHandler().setMachineUser(user_id, id);
-								
-								//reset list
-								machineList.clear();
-								new LoadMachines().execute(machineList);
-							}
-							else{
-								//Toast.makeText(getApplicationContext(), "Machine is currently unavailable, are you user "+new ServerHandler().getMachineUser(id), Toast.LENGTH_LONG).show();
-								AlertDialog.Builder machDialog = new AlertDialog.Builder(MachineTabActivity.this);
-								machDialog.setTitle("Machine is currently unavailable, are you user "+new ServerHandler().getMachineUser(id)+"?");
-								machDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										new ChangeMachineAvail().execute("1",id);
 
-										//update view...
-										machineList.clear();
-										new LoadMachines().execute(machineList);
-									}
-								});
-								machDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-									
-									@Override
-									public void onClick(DialogInterface dialog, int which) {	
-										dialog.dismiss();
-									}
-								});
-								machDialog.create().show();
-								
-								
-							}
-							
-						}
-					})
-				       .setNegativeButton("No", new DialogInterface.OnClickListener() {
-						
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.cancel();
-							
-						}
-					});
-				AlertDialog alert = builder.create();
-				alert.show();*/
 				
 
     private class LoadMachines extends AsyncTask <ArrayList<Machine>, Void, ArrayList<Machine>>{
@@ -249,7 +192,7 @@ public class MachineTabActivity extends ListActivity{
 		        	int id = Integer.parseInt(tokens[0]);
 		        	String name = tokens[1];
 		        	String body_focus = tokens[2];
-		        	int available = Integer.parseInt(tokens[3]);
+		        	//int available = Integer.parseInt(tokens[3]);
 		        	String exercise_type = tokens[4];
 		        	userMachineList.add(new Machine(id,name,body_focus,false,exercise_type));
 	        	}

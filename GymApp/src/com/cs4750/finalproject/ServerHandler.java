@@ -54,6 +54,34 @@ public class ServerHandler {
 		nameValuePairs.clear();
 		return result;
 	}
+	
+	public String validateUser(String username, String userType){
+		nameValuePairs.add(new BasicNameValuePair("command","validateUser"));
+		nameValuePairs.add(new BasicNameValuePair("username",username));
+		nameValuePairs.add(new BasicNameValuePair("usertype",userType));
+		String line;
+		try {
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse  = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+				//dataResult.add(line);
+			}
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		nameValuePairs.clear();
+		return result;
+	}
 	public String addUser(String name, String lastName, String age, String email, String phone, String screenName, String pw, boolean... user){
 		nameValuePairs.add(new BasicNameValuePair("command","addUser"));
 		nameValuePairs.add(new BasicNameValuePair("name",name));
@@ -370,6 +398,34 @@ public class ServerHandler {
 	public String getClass(String classId){
 		nameValuePairs.add(new BasicNameValuePair("command","getClass"));
 		nameValuePairs.add(new BasicNameValuePair("classId",classId));
+		String line;
+		try{
+			HttpPost httpPost = new HttpPost(server);
+			httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse httpResponse = httpClient.execute(httpPost);
+			HttpEntity entity = httpResponse.getEntity();
+			InputStream is = entity.getContent();
+			
+			//get response string...
+			BufferedReader bf = new BufferedReader(new InputStreamReader(is));
+			StringBuilder sb = new StringBuilder();
+			while((line = bf.readLine()) != null){        
+				sb.append(line + "\n");
+			}
+
+			is.close();
+			result = sb.toString();
+		} catch (Exception e) {
+		e.printStackTrace();
+	}
+	nameValuePairs.clear();
+	return result;
+		
+	}
+	
+	public String getRoom(String roomId){
+		nameValuePairs.add(new BasicNameValuePair("command","getRoom"));
+		nameValuePairs.add(new BasicNameValuePair("roomId",roomId));
 		String line;
 		try{
 			HttpPost httpPost = new HttpPost(server);

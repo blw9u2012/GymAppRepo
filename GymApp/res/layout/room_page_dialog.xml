@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/roomPageRelLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/roomName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Room: "
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/roomFloor"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Floor:" />
+
+    <TextView
+        android:id="@+id/roomOccupancy"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Number of People in Room: " />
+
+    <TextView
+        android:id="@+id/roomCapacity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Capacity: " />
+
+    <TextView
+        android:id="@+id/roomAvailability"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Availability" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/roomReserveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reserve" />
+        <Button
+            android:id="@+id/roomUnReserveButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Release a Room" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -2,6 +2,8 @@ package com.cs4750.finalproject;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -31,9 +33,8 @@ public class HomeTabActivity extends ListActivity{
         TextView userTV = (TextView)findViewById(R.id.pageusername);
         userTV.setText(user_name);
         
-        ArrayList<String> machineActivity = new ArrayList<String>();
         ArrayList<String> classActivity = new ArrayList<String>();
-        new LoadRecentActivity().execute(machineActivity,classActivity);
+        new LoadRecentActivity().execute(classActivity);
         
         ListView lv = getListView();
         lv.setOnItemClickListener(new OnItemClickListener(){
@@ -42,9 +43,11 @@ public class HomeTabActivity extends ListActivity{
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				Class c = userRecentClasses.get(position);
-				Intent i = new Intent(HomeTabActivity.this, ClassActivity.class);
-
-				
+				AlertDialog.Builder alertClassBox = new AlertDialog.Builder(HomeTabActivity.this);
+				alertClassBox.setTitle(c.getTitle());
+				alertClassBox.setMessage(c.getInstructor()+"\nEnrolled: "+c.getEnrolled()+" of "+c.getCapactity());
+				alertClassBox.setCancelable(true);
+				alertClassBox.create().show();		
 			}
         	
         });
@@ -83,22 +86,9 @@ public class HomeTabActivity extends ListActivity{
 		protected ArrayList<Class> doInBackground(ArrayList<String>... params) {
 	        ServerHandler sv = new ServerHandler();
 	        ArrayList<String> classes = params[0];
-	   	 ArrayList<Class> finalList = new ArrayList<Class>();
+	   	 	ArrayList<Class> finalList = new ArrayList<Class>();
 	        
-	      //first load user's recently used machines...
-	       // machines = sv.getUserMachines(user_id);
 	        classes = sv.getUserClasses(user_id);
-	        
-/*	        for(int i = 0; i < machines.size(); i++){
-	        	String machine = machines.get(i);
-	        	machine.trim();
-	        	String delims = "[,]";
-	        	String[] tokens = machine.split(delims);
-	        	
-	        	String name = tokens[1];
-	        	finalList.add(name);
-	        	
-	        }*/
 	        
 	        for(int i = 0; i < classes.size(); i++){
 	        	String cls = classes.get(i);

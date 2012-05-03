@@ -53,6 +53,10 @@
             android:label="@string/app_name"
             android:name=".ClassActivity"
             android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
+            android:label="@string/app_name"
+            android:name=".RoomActivity"
+            android:theme="@android:style/Theme.NoTitleBar" />
     </application>
 
 </manifest>

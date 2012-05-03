@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+//not using this class anymore...
+
 public class ExpandableListAdapter extends BaseExpandableListAdapter{
 	
 	private Context context;

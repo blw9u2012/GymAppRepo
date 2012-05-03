@@ -2,10 +2,10 @@ package com.cs4750.finalproject;
 
 import java.util.ArrayList;
 
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,20 +13,20 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class RoomTabActivity extends ListActivity{
 	private ArrayList<Room> roomList;
 	private RoomAdapter roomListAdapter;
-	
+	String user_name;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.room_tab);
 		Bundle bundle = getIntent().getExtras();
-		String user_name = bundle.getString("user_name");
+		user_name = bundle.getString("user_name");
 		
 		TextView userTV = (TextView)findViewById(R.id.pageusername);
 		userTV.setText(user_name);
@@ -36,6 +36,31 @@ public class RoomTabActivity extends ListActivity{
         ListView lv = getListView();
         new LoadRooms().execute(new ArrayList<Room>());
         lv.setOnItemClickListener(new OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, final int position,
+					long id) {
+				final String[] users = {"FullTimeStaff","PesonalTrainers","MassageTherapist","DropInInstructor","Nutritionist","Club"};
+				
+				AlertDialog.Builder roomAlertBox = new AlertDialog.Builder(RoomTabActivity.this);
+				roomAlertBox.setTitle("Are you a:");
+				roomAlertBox.setSingleChoiceItems(users, -1, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//validate user...
+						String user_type = users[which];
+						Room r = roomList.get(position);
+						
+						new ValidateUser().execute(user_type, r.getId());
+						
+					}
+				});
+				roomAlertBox.create().show();
+			}
+        	
+        });
+ /*       lv.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -53,6 +78,8 @@ public class RoomTabActivity extends ListActivity{
 								//reset list
 								roomList.clear();
 								new LoadRooms().execute(roomList);
+								
+								
 							}
 							else{
 								new ChangeRoomAvail().execute("1",r.getId());
@@ -77,7 +104,7 @@ public class RoomTabActivity extends ListActivity{
 				
 			}
         	
-        });
+        });*/
         
     }
 	@Override
@@ -96,10 +123,10 @@ public class RoomTabActivity extends ListActivity{
 	        ArrayList<Room> rooms = params[0];
 	        ArrayList<String> result = sv.createPostRequestArrayList("getRooms");
 	        for(int i = 0; i < result.size(); i++){
-	        	String machine = result.get(i);
-	        	machine.trim();
+	        	String rm = result.get(i);
+	        	rm.trim();
 	        	String delims = "[,]";
-	        	String[] tokens = machine.split(delims);
+	        	String[] tokens = rm.split(delims);
 	        	
 	        	String id = tokens[0];
 	        	String name = tokens[1];
@@ -129,6 +156,30 @@ public class RoomTabActivity extends ListActivity{
             setListAdapter(roomListAdapter);
     		
     	}
+    }
+    private class ValidateUser extends AsyncTask<String, Void,String>{
+    	String room_id;
+		@Override
+		protected String doInBackground(String... params) {
+			ServerHandler sv = new ServerHandler();
+			String user_type = params[0];
+		    room_id = params[1];
+			String result = sv.validateUser(user_name, user_type);
+			return result;
+		}
+		
+		protected void onPostExecute(String result){
+			if(result.equals("Failed")){
+				Toast.makeText(RoomTabActivity.this, "You do not have permission to reserve a room :(", Toast.LENGTH_LONG).show();
+			}
+			else{
+				Intent i = new Intent(RoomTabActivity.this, RoomActivity.class);
+				i.putExtra("room_id", room_id);
+				i.putExtra("user_name", user_name);
+				startActivity(i);
+			}
+		}
+    	
     }
     private class ChangeRoomAvail extends AsyncTask <String, Void, String>{
 

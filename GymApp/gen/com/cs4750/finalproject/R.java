@@ -14,12 +14,23 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
         public static final int ic_tab_artists_grey=0x7f020001;
         public static final int ic_tab_artists_white=0x7f020002;
-        public static final int ic_tab_icons=0x7f020003;
-        public static final int uva_logo=0x7f020004;
+        public static final int ic_tab_class=0x7f020003;
+        public static final int ic_tab_class_selected=0x7f020004;
+        public static final int ic_tab_class_unselected=0x7f020005;
+        public static final int ic_tab_home=0x7f020006;
+        public static final int ic_tab_home_selected=0x7f020007;
+        public static final int ic_tab_home_unselected=0x7f020008;
+        public static final int ic_tab_machine=0x7f020009;
+        public static final int ic_tab_machine_selected=0x7f02000a;
+        public static final int ic_tab_machine_unselected=0x7f02000b;
+        public static final int ic_tab_room=0x7f02000c;
+        public static final int ic_tab_room_selected=0x7f02000d;
+        public static final int ic_tab_room_unselected=0x7f02000e;
+        public static final int uva_logo=0x7f02000f;
     }
     public static final class id {
-        public static final int RefreshList=0x7f070034;
-        public static final int about=0x7f070036;
+        public static final int RefreshList=0x7f07003a;
+        public static final int about=0x7f07003c;
         public static final int agePhoneRow=0x7f07001d;
         public static final int classCheckInButton=0x7f070009;
         public static final int classDay=0x7f070004;
@@ -34,16 +45,16 @@ public final class R {
         public static final int classTitle=0x7f070002;
         public static final int classTitleTV=0x7f07000e;
         public static final int date=0x7f07000d;
-        public static final int home_page=0x7f07002c;
+        public static final int home_page=0x7f070033;
         public static final int info_row=0x7f07000b;
-        public static final int loginButton=0x7f070030;
-        public static final int loginInfo=0x7f07002d;
-        public static final int loginText=0x7f07002e;
+        public static final int loginButton=0x7f070037;
+        public static final int loginInfo=0x7f070034;
+        public static final int loginText=0x7f070035;
         public static final int machineAvailibity=0x7f070013;
         public static final int machineName=0x7f070012;
         public static final int machineTitleTV=0x7f070016;
         public static final int pageusername=0x7f07000c;
-        public static final int pwText=0x7f07002f;
+        public static final int pwText=0x7f070036;
         public static final int registerClubCheckBox=0x7f070028;
         public static final int registerDetailsTitle=0x7f070019;
         public static final int registerInstructorCheckBox=0x7f070024;
@@ -63,17 +74,23 @@ public final class R {
         public static final int registerUserSV=0x7f070017;
         public static final int registerUserScreenName=0x7f070020;
         public static final int registerUserSpinner=0x7f07001e;
+        public static final int roomAvailability=0x7f07002f;
         public static final int roomAvailibity=0x7f070015;
+        public static final int roomCapacity=0x7f07002e;
+        public static final int roomFloor=0x7f07002c;
         public static final int roomName=0x7f070014;
-        public static final int roomTitleTV=0x7f07002b;
-        public static final int sampleText=0x7f070033;
-        public static final int signUpButton=0x7f070031;
-        public static final int title=0x7f070032;
+        public static final int roomOccupancy=0x7f07002d;
+        public static final int roomPageRelLayout=0x7f07002b;
+        public static final int roomReserveButton=0x7f070030;
+        public static final int roomTitleTV=0x7f070032;
+        public static final int roomUnReserveButton=0x7f070031;
+        public static final int signUpButton=0x7f070038;
+        public static final int title=0x7f070039;
         public static final int tvChild=0x7f070000;
         public static final int tvGroup=0x7f07000f;
         public static final int userPageLinLayout=0x7f07000a;
-        public static final int viewMachines=0x7f070035;
-        public static final int viewRecentActivity=0x7f070037;
+        public static final int viewMachines=0x7f07003b;
+        public static final int viewRecentActivity=0x7f07003d;
     }
     public static final class layout {
         public static final int child_row=0x7f030000;
@@ -86,9 +103,10 @@ public final class R {
         public static final int list_item_rooms=0x7f030007;
         public static final int machine_tab=0x7f030008;
         public static final int register_user=0x7f030009;
-        public static final int room_tab=0x7f03000a;
-        public static final int signin_page=0x7f03000b;
-        public static final int tab_host=0x7f03000c;
+        public static final int room_page_dialog=0x7f03000a;
+        public static final int room_tab=0x7f03000b;
+        public static final int signin_page=0x7f03000c;
+        public static final int tab_host=0x7f03000d;
     }
     public static final class menu {
         public static final int classes_menu=0x7f060000;

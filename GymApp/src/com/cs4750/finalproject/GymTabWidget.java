@@ -28,7 +28,7 @@ public class GymTabWidget extends TabActivity {
 	    intent.putExtra("id", user_id);
 
 	    // Initialize a TabSpec for each tab and add it to the TabHost
-	    spec = tabHost.newTabSpec("Home").setIndicator("Home",res.getDrawable(R.drawable.ic_tab_icons))
+	    spec = tabHost.newTabSpec("Home").setIndicator("Home",res.getDrawable(R.drawable.ic_tab_home))
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 
@@ -37,7 +37,7 @@ public class GymTabWidget extends TabActivity {
 	    intent.putExtra("user_name", username);
 	    intent.putExtra("id", user_id);
 	    spec = tabHost.newTabSpec("Machines").setIndicator("Machines",
-	                      res.getDrawable(R.drawable.ic_tab_icons))
+	                      res.getDrawable(R.drawable.ic_tab_machine))
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 
@@ -45,7 +45,7 @@ public class GymTabWidget extends TabActivity {
 	    intent.putExtra("user_name", username);
 	    intent.putExtra("id", user_id);
 	    spec = tabHost.newTabSpec("Rooms").setIndicator("Rooms",
-	                      res.getDrawable(R.drawable.ic_tab_icons))
+	                      res.getDrawable(R.drawable.ic_tab_room))
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 	    
@@ -53,7 +53,7 @@ public class GymTabWidget extends TabActivity {
 	    intent.putExtra("user_name", username);
 	    intent.putExtra("id", user_id);
 	    spec = tabHost.newTabSpec("Class").setIndicator("Class",
-	                      res.getDrawable(R.drawable.ic_tab_icons))
+	                      res.getDrawable(R.drawable.ic_tab_class))
 	                  .setContent(intent);
 	    tabHost.addTab(spec);
 
